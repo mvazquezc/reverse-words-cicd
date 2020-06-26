@@ -1,0 +1,29 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: get-stage-release
+spec:
+  inputs:
+    resources:
+    - name: cicd
+      type: git
+    params:
+    - name: stage-deployment-file
+      type: string
+      description: Path to the deployment file for staging on the repo
+    - name: stage-branch
+      type: string
+      description: Branch for stage environment on the git repository
+  results:
+    - name: release-tag
+      description: Current release deployed on stage
+  steps:
+    - name: get-staging-image
+      image: bitnami/git
+      workingdir: /workspace/cicd
+      script: |
+        #!/bin/bash
+        git fetch &> /dev/null
+        git checkout "$(params.stage-branch)" &> /dev/null
+        grep "image:" "$(params.stage-deployment-file)" | awk -F ":" '{print $3}' | xargs echo -n > /tekton/results/release-tag

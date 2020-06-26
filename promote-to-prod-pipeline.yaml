@@ -1,0 +1,83 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: reverse-words-cicd-git
+spec:
+  type: git
+  params:
+  - name: url
+    value: <reversewords_cicd_git_repo>
+  - name: sslVerify
+    value: "false"
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: reverse-words-promote-pipeline
+spec:
+  resources:
+  - name: app-git
+    type: git
+  params:
+  - name: pathToDeploymentFile
+    type: string
+    description: Path to the deployment file for stage
+  - name: stageBranch
+    type: string
+    default: stage
+    description: Branch where the deployment file for stage is located
+  - name: stageAppUrl
+    type: string
+    description: URL where the staging app is published
+  tasks:
+
+  - name: access-stage-build
+    taskRef:
+      name: curl
+    params:
+      - name: url
+        value: "$(params.stageAppUrl)"
+      - name: options
+        value:
+          - "-s"
+
+  - name: get-stage-release
+    taskRef:
+      name: get-stage-release
+    params:
+      - name: stage-deployment-file
+        value: "$(params.pathToDeploymentFile)"
+      - name: stage-branch
+        value: "$(params.stageBranch)"
+    runAfter:
+      - access-stage-build
+    resources:
+      inputs:
+      - name: cicd
+        resource: app-git
+
+  - name: promote-stage-image
+    taskRef:
+      name: image-updater
+    runAfter:
+      - get-stage-release
+    params:
+      - name: driver
+        value: "github"
+      - name: file-path
+        value: "deployment.yaml"
+      - name: image-repo
+        value: "<reversewords_quay_repo>"
+      - name: new-image-url
+        value: "<reversewords_quay_repo>:$(tasks.get-stage-release.results.release-tag)"
+      - name: source-branch
+        value: "prod"
+      - name: source-repo
+        value: "<imageBuilder_sourcerepo>"
+      - name: update-key
+        value: "spec.template.spec.containers.0.image"
+      - name: insecure
+        value: "true"
+      - name: branch-generate-name
+        value: "image-promotion-"
+

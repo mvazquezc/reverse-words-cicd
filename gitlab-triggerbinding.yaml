@@ -1,0 +1,10 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: gitlab-triggerbinding
+spec:
+  params:
+  - name: gitrevision
+    value: $(body.after)
+  - name: gitrepositoryurl
+    value: $(body.project.git_http_url)
