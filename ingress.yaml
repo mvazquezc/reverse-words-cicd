@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: reverse-words
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+spec:
+  rules:
+  - host: <changeme>
+    http:
+      paths:
+      - backend:
+          serviceName: reverse-words
+          servicePort: http

@@ -1,0 +1,11 @@
+namespace: reverse-words-stage
+commonLabels:
+  app: reversewords-stage
+bases:
+- https://github.com/mvazquezc/reverse-words-cicd?ref=config
+resources:
+- namespace.yaml
+- ingress.yaml
+patchesStrategicMerge:
+- deployment.yaml
+
