@@ -8,7 +8,7 @@ spec:
   - name: url
     value: <reversewords_cicd_git_repo>
   - name: revision
-    value: main
+    value: config
   - name: sslVerify
     value: "false"
 ---
