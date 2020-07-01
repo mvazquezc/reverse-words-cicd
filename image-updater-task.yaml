@@ -26,7 +26,7 @@ spec:
     - name: source-branch
       type: string
       description: Branch to fetch for updating
-      default: master
+      default: main
     - name: source-repo
       type: string
       description: Git repository to update e.g. org/repo
