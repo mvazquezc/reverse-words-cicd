@@ -6,7 +6,6 @@ bases:
 resources:
 - namespace.yaml
 - ingress.yaml
-- test-secret-sealed.yaml
 patchesStrategicMerge:
 - deployment.yaml
 
