@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: <userXY>-reverse-words-stage
+  name: user1-reverse-words-stage
