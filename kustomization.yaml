@@ -2,7 +2,7 @@ namespace: reverse-words-production
 commonLabels:
   app: reversewords-prod
 bases:
-- github.com/mvazquezc/reverse-words-cicd?ref=config
+- github.com/cloudapps-idey/reverse-words-cicd?ref=config
 resources:
 - namespace.yaml
 - ingress.yaml
