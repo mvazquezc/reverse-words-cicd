@@ -7,7 +7,7 @@ metadata:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   rules:
-  - host: reversewords-prod.apps.itx.f010.sandbox1895.opentlc.com
+  - host: reversewords-prod.apps.cluster-de98.de98.example.opentlc.com
     http:
       paths:
       - backend:
