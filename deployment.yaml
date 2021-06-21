@@ -5,6 +5,7 @@ metadata:
     app: reverse-words
   name: reverse-words
 spec:
+  replicas: 2
   template:
     spec:
       containers:
