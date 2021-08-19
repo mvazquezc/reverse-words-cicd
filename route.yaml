@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: reverse-words
+spec:
+  host: reversewords.apps.cluster0.ericsson-sno.e2e.bos.redhat.com
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  to:
+    kind: "Service"
+    name: reverse-words
+    weight: 100
+
