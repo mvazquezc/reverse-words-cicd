@@ -26,7 +26,7 @@ spec:
     - apiVersion: tekton.dev/v1alpha1
       kind: PipelineRun
       metadata:
-        name: reversewords-build-pipeline-run-$(uid)
+        generateName: reversewords-build-pipeline-run-
       spec:
         pipelineRef:
           name: reverse-words-build-pipeline
@@ -39,7 +39,7 @@ spec:
         resources:
           - name: app-git
             resourceRef:
-              name: reversewords-git-$(uid)
+              name: reversewords-git
           - name: app-image
             resourceRef:
               name: reverse-words-image
