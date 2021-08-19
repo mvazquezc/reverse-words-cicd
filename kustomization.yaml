@@ -5,6 +5,7 @@ bases:
 - github.com/mvazquezc/reverse-words-cicd?ref=config
 resources:
 - namespace.yaml
-- ingress.yaml
+#- ingress.yaml
+- route.yaml
 patchesStrategicMerge:
 - deployment.yaml
