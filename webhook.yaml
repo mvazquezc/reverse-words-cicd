@@ -61,7 +61,5 @@ spec:
               - push
       bindings:
         - ref: <git-triggerbinding>
-        - name: <git-triggerbinding>
-          value: Hello from the Git Triggers EventListener!
       template:
         name: reverseword-build-triggertemplate
