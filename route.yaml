@@ -3,7 +3,6 @@ kind: Route
 metadata:
   name: reverse-words
 spec:
-  host: reversewords.apps.dev.2095.sandbox1670.opentlc.com
   port:
     targetPort: 8080
   tls:
